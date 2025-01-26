@@ -120,17 +120,7 @@ Você pode definir o perfil via variável de ambiente ou diretamente na linha de
 
 ---
 
-## Uso de Plugins do Gradle
 
-Caso o projeto utilize plugins adicionais, como:
-
-- **Spring Boot**: facilita o build e execução da aplicação.
-- **Jacoco**: gera relatórios de cobertura de testes em `build/reports/jacoco/test/html`.
-- **Docker** ou outros plugins para empacotamento.
-
-Verifique no arquivo `build.gradle` (ou `build.gradle.kts`) para mais detalhes.
-
----
 
 ## Explicação de Comandos
 
