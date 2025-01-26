@@ -9,8 +9,8 @@ Este projeto é uma aplicação Java que pode ser executada tanto em ambiente de
 1. [Pré-requisitos](#pré-requisitos)
 2. [Modo de Produção via Docker Compose](#modo-de-produção-via-docker-compose)
 3. [Modo de Desenvolvimento (Linha de Comando)](#modo-de-desenvolvimento-linha-de-comando)
-    - [Linux](#para-versao-em-linux)
-    - [Windows](#para-versao-em-windows)
+   - [Linux](#para-versao-em-linux)
+   - [Windows](#para-versao-em-windows)
 4. [Rodando Testes](#rodando-testes)
 5. [Perfis do Spring](#perfis-do-spring)
 6. [Passo a Passo para Docker Compose](#passo-a-passo-para-docker-compose)
@@ -29,8 +29,6 @@ Este projeto é uma aplicação Java que pode ser executada tanto em ambiente de
 - (Opcional) Permissões de execução para scripts `.sh` em sistemas baseados em Unix.
 
 ---
-
-
 
 ## Modo de Produção via Docker Compose
 
@@ -121,7 +119,6 @@ Você pode definir o perfil via variável de ambiente ou diretamente na linha de
 ---
 
 
-
 ## Explicação de Comandos
 
 - `./gradlew clean build -x test`: remove artefatos anteriores e compila o projeto, ignorando testes.
@@ -131,40 +128,71 @@ Você pode definir o perfil via variável de ambiente ou diretamente na linha de
 
 ---
 
-## Lista de Endpoints (Se Aplicável)
+## Lista de Endpoints \(Se Aplicável\)
 
-A aplicação expõe uma série de endpoints para criação e consulta de simulações de crédito. Veja abaixo:
+A aplicação expõe uma série de endpoints para criação e consulta de simulações de crédito\. Veja abaixo:
+
+Exemplos de requisições:
+
+### Criar Simulação
+
+**Requisição**:
+```json
+{
+    "valorEmprestimo": 58263,
+    "dataNascimento": "1982-08-02",
+    "prazoMeses": 52
+}
+```
+
+### Simular Em Lote
+
+**Requisição**:
+```json
+[
+  {
+    "valorEmprestimo": 58263,
+    "dataNascimento": "1982-08-02",
+    "prazoMeses": 52
+  },
+  {
+    "valorEmprestimo": 30870,
+    "dataNascimento": "1983-08-11",
+    "prazoMeses": 10
+  }
+]
+```
 
 1. **Criar Simulação**
 
-    - **Método**: `POST`
-    - **URL**: `/api/simulacoes`
-    - **Descrição**: Cria uma nova simulação de empréstimo.
-    - **Corpo da Requisição (JSON)**: `RequestSimulacao` contendo dados como valor do empréstimo, data de nascimento do solicitante, prazo em meses, etc.
-    - **Retorno**: Objeto `ResponseSimulacao` contendo informações como valor total, valor da parcela mensal, total de juros e identificador da simulação.
+   - **Método**: `POST`
+   - **URL**: `/api/simulacoes`
+   - **Descrição**: Cria uma nova simulação de empréstimo.
+   - **Corpo da Requisição (JSON)**: `RequestSimulacao` contendo dados como valor do empréstimo, data de nascimento do solicitante, prazo em meses, etc.
+   - **Retorno**: Objeto `ResponseSimulacao` contendo informações como valor total, valor da parcela mensal, total de juros e identificador da simulação.
 
 2. **Buscar Simulação por ID**
 
-    - **Método**: `GET`
-    - **URL**: `/api/simulacoes/{id}`
-    - **Descrição**: Retorna os dados de uma simulação a partir do seu ID.
-    - **Parâmetro**: `id` (String), identificador único da simulação.
-    - **Retorno**: Objeto `ResponseSimulacao` com os detalhes da simulação.
+   - **Método**: `GET`
+   - **URL**: `/api/simulacoes/{id}`
+   - **Descrição**: Retorna os dados de uma simulação a partir do seu ID.
+   - **Parâmetro**: `id` (String), identificador único da simulação.
+   - **Retorno**: Objeto `ResponseSimulacao` com os detalhes da simulação.
 
 3. **Listar Todas as Simulações**
 
-    - **Método**: `GET`
-    - **URL**: `/api/simulacoes`
-    - **Descrição**: Retorna todas as simulações já cadastradas.
-    - **Retorno**: Lista de objetos `Simulacao` (reactive flux), contendo todas as simulações.
+   - **Método**: `GET`
+   - **URL**: `/api/simulacoes`
+   - **Descrição**: Retorna todas as simulações já cadastradas.
+   - **Retorno**: Lista de objetos `Simulacao` (reactive flux), contendo todas as simulações.
 
 4. **Simular Em Lote**
 
-    - **Método**: `POST`
-    - **URL**: `/api/simulacoes/lote`
-    - **Descrição**: Cria múltiplas simulações de uma só vez.
-    - **Corpo da Requisição (JSON)**: Lista de objetos `RequestSimulacao`.
-    - **Retorno**: Lista de objetos `ResponseSimulacao`, cada um representando o resultado de cada simulação.
+   - **Método**: `POST`
+   - **URL**: `/api/simulacoes/lote`
+   - **Descrição**: Cria múltiplas simulações de uma só vez.
+   - **Corpo da Requisição (JSON)**: Lista de objetos `RequestSimulacao`.
+   - **Retorno**: Lista de objetos `ResponseSimulacao`, cada um representando o resultado de cada simulação.
 
 ---
 
