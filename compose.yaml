@@ -1,0 +1,27 @@
+services:
+  testecreditas:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '8080:8080'
+    depends_on:
+      - mongodb
+    profiles:
+      - prod
+    networks:
+      - testecreditas
+
+  mongodb:
+    image: 'mongo:latest'
+    environment:
+      - 'MONGO_INITDB_DATABASE=mydatabase'
+      - 'MONGO_INITDB_ROOT_PASSWORD=secret'
+      - 'MONGO_INITDB_ROOT_USERNAME=root'
+    ports:
+      - '27017:27017'
+    networks:
+      - testecreditas
+
+networks:
+  testecreditas:
