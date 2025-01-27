@@ -3,6 +3,7 @@ package com.example.testecreditas;
 
 import com.example.testecreditas.application.dto.RequestSimulacao;
 import com.example.testecreditas.application.dto.ResponseSimulacao;
+import com.example.testecreditas.application.dto.TipoTaxa;
 import com.example.testecreditas.application.service.SimulacaoService;
 import com.example.testecreditas.domain.RepositorioSimulacao;
 import com.example.testecreditas.domain.Simulacao;
@@ -35,7 +36,7 @@ class SimulacaoServiceTest {
 
     @Test
     void deveSimularComDadosValidos() {
-        RequestSimulacao solicitacao = new RequestSimulacao(1000.0, LocalDate.of(1990, 1, 1), 12);
+        RequestSimulacao solicitacao = new RequestSimulacao(1000.0, LocalDate.of(1990, 1, 1), 12, TipoTaxa.VARIAVEL);
         Simulacao simulacao = new Simulacao(
                 UUID.randomUUID().toString(),
                 1000.0,
@@ -55,7 +56,7 @@ class SimulacaoServiceTest {
 
     @Test
     void deveRetornarErroParaDadosInvalidos() {
-        RequestSimulacao solicitacao = new RequestSimulacao(-500.0, LocalDate.of(1990, 1, 1), -12);
+        RequestSimulacao solicitacao = new RequestSimulacao(-500.0, LocalDate.of(1990, 1, 1), -12, TipoTaxa.FIXA);
         Mono<ResponseSimulacao> resultado = simulacaoService.simular(solicitacao);
 
         StepVerifier.create(resultado)
