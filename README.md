@@ -128,7 +128,7 @@ Você pode definir o perfil via variável de ambiente ou diretamente na linha de
 
 ---
 
-## Lista de Endpoints \(Se Aplicável\)
+## Lista de Endpoints 
 
 A aplicação expõe uma série de endpoints para criação e consulta de simulações de crédito\. Veja abaixo:
 

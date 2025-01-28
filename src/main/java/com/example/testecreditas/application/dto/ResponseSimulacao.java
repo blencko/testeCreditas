@@ -10,4 +10,5 @@ public record ResponseSimulacao(
         double valorEmprestimo,
         LocalDate dataNascimento,
         int prazoMeses
-) {}
+) {
+}

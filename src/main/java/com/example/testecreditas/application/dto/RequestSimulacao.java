@@ -7,4 +7,5 @@ public record RequestSimulacao(
         LocalDate dataNascimento,
         int prazoMeses,
         TipoTaxa tipoTaxa
-) {}
+) {
+}

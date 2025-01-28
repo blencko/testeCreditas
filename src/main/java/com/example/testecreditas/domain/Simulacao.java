@@ -17,5 +17,5 @@ public record Simulacao(
         double totalJuros
 ) {
 
-    
+
 }

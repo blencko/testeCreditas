@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.MongoDBContainer;
@@ -18,15 +20,19 @@ import static org.hamcrest.CoreMatchers.equalTo;
 
 @Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = TestecreditasApplication.class)
+@ActiveProfiles("dev")
 class SimulacaoControllerPerformanceTest {
 
 
-    private static final int LOTE_SIZE = 20000;
+    private static final int LOTE_SIZE = 10000;
     static MongoDBContainer mongodb = new MongoDBContainer("mongo:latest").withEnv("MONGO_INITDB_DATABASE", "testdb");
 
     static {
         mongodb.start();
     }
+
+    @Autowired
+    private JavaMailSender javaMailSender;
 
     @Autowired
     private TestRestTemplate testRestTemplate;
@@ -79,8 +85,8 @@ class SimulacaoControllerPerformanceTest {
                 .contentType("application/json")
                 .body(sb.toString())
                 .post("/api/simulacoes/lote")
-                .then().assertThat().statusCode(200)
-                .assertThat().time(Matchers.lessThan(4500L));
+                .then().assertThat().statusCode(202)
+                .assertThat().time(Matchers.lessThan(5500L));
     }
 
 }

@@ -2,7 +2,7 @@ FROM gradle:8.11.1-jdk21 as build
 
 WORKDIR /app
 
-COPY src/app
+COPY . /app
 
 RUN gradle build --no-daemon -x test
 

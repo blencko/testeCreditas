@@ -1,4 +1,4 @@
-package com.example.testecreditas.adapter.controller;
+package com.example.testecreditas.controller;
 
 
 import com.example.testecreditas.application.dto.RequestSimulacao;
@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
 import java.util.List;
 
 @RestController
@@ -27,7 +28,7 @@ public class SimulacaoController {
 
     @PostMapping
     public Mono<ResponseSimulacao> criarSimulacao(@RequestBody RequestSimulacao solicitacao) {
-        return service.simular(solicitacao);
+        return service.simular(solicitacao, true);
     }
 
 
@@ -52,8 +53,10 @@ public class SimulacaoController {
     }
 
     @PostMapping("/lote")
-    public Flux<ResponseSimulacao> simularEmLote(@RequestBody List<RequestSimulacao> solicitacoes) {
-        return Flux.fromIterable(solicitacoes)
-                .flatMap(service::simular);
+    public Mono<ResponseEntity<String>> simularEmLote(@RequestBody List<RequestSimulacao> solicitacoes) {
+        service.simularEmLote(solicitacoes).subscribe();
+        return Mono.just(ResponseEntity.accepted()
+                .body("Sua solicitação está em processamento. Você receberá um e-mail com os resultados em breve."));
     }
+
 }
